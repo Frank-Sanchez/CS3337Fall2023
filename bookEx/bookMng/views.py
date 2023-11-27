@@ -52,14 +52,16 @@ def postbook(request):
 def searchbook(request):
     if request.method == "POST":
         searched = request.POST['searched']
-        book = Book.objects.filter(name__contains=searched)
-        # book.pic_path = book.picture.url[14:]
+        books = Book.objects.filter(name__contains=searched)
+        for book in books:
+            book.pic_path = book.picture.url[14:]
+
         return render(request,
-                      'bookMng/searchbook.html',
+                     'bookMng/searchbook.html',
                       {
                           'item_list': MainMenu.objects.all(),
                           'searched': searched,
-                          'book': book})
+                          'book': books})
     else:
         return render(request,
                       'bookMng/searchbook.html',

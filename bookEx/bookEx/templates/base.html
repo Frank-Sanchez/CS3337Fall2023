@@ -5,46 +5,39 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        {% block title%}
+        {% block title %}
         Title
         {% endblock title %}
     </title>
-    <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 </head>
 <body>
-    <header id="header">
-        <img src="{% static 'logo.jpg'%}" height="60" width="60" alt=""/>
+<img src="{% static 'banner.jpg'%}" height="60" width="600" alt=""/>
+    <nav class="navbar navbar-inverse" style="margin-top: 0px;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <img src="{% static 'logo.jpg'%}" height="60" width="60" alt=""/>
+    </div>
+    <ul class="nav navbar-nav">
+     {% block sidenav %}
+        <li>Menu 1</li>
+        <li>Menu 2</li>
+     {% endblock sidenav %}
+    </ul>
+  </div>
+</nav>
 
-        <span style="float: right">
-            {% if user.is_authenticated %}
-                {{ user.username }}
-                <a href="{% url 'logout' %}?next=/">Logout</a>
-            {% else %}
-                Not Logged in<a href="{% url 'login' %}?next=/"> Login </a>
-            {% endif %}
-        </span>
 
-        <img src="{% static 'banner.jpg'%}" height="60" width="600" alt=""/>
-    </header>
+    <div class="container">
+        <section id="main">
+            {% block content %}
+            <h1 align="center">This is our BookExchange System</h1>
+            {% endblock content %}
+        </section>
+    </div>
 
-    <aside id="leftsidebar">
-        <nav id="nav">
-            <ul>
-                {% block sidenav %}
-                    <li>Menu 1</li>
-                    <li>Menu 2</li>
-                {% endblock sidenav %}
-            </ul>
-        </nav>
-
-    </aside>
-
-    <section id="main">
-        {% block content %}
-        <h1 align="center">This is our BookExchange System</h1>
-        {% endblock content %}
-    </section>
-    <footer id="footer">2023 Fall Django Project BookEx System</footer>
-
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua/CnNqdVgVopFq3L/kXIB6jA5IzFLg6oAlyA6kE4Jo1F8Pv5fnpsd3L" crossorigin="anonymous"></script>
 </body>
 </html>
